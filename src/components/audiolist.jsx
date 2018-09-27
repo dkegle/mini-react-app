@@ -10,7 +10,8 @@ class AudioList extends React.Component {
     }
 
     componentDidMount(){
-        const url = 'https://api.mixcloud.com/search/?q=party+time&type=cloudcast'; // initial
+        // initialize
+        const url = 'https://api.mixcloud.com/search/?q=party+time&type=cloudcast';
 		this.props.setActiveList(url);
     }
 
@@ -24,17 +25,22 @@ class AudioList extends React.Component {
             let end = this.props.elements.active_offset + this.props.elements.active_limit;
             for(let i=start; i < end; i++){
                 let el = this.props.elements.items[i];
-                elements.push(<AudioElement key={el.key} dragon={el.name} />);
+                elements.push(<AudioElement key={el.key} data={el} />);
             }
             const next_page = this.props.elements.next_page;
             const prev_page = this.props.elements.prev_page;
-            prev_button = <Button name="prev" url={prev_page}/>;
-            next_button = <Button name="next" url={next_page}/>;
+            prev_button = <Button text="prev" url={prev_page} 
+                onclick={() => this.props.setActiveList(prev_page)}/>;
+            next_button = <Button text="next" url={next_page} 
+                onclick={() => this.props.setActiveList(next_page)}/>;
         }
-        return (<div>
+
+        return (<div style={{margin: '0 auto', width: "500px" }}>
             {elements}
-            {prev_button}
-            {next_button}
+            <div style={{display: 'flex', justifyContent: "center"}}>
+                {prev_button}
+                {next_button}
+            </div>
         </div>);
     }
 }
