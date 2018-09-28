@@ -1,4 +1,12 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+
+const Button = ({text, onclick}) => {
+    return (<button onClick={onclick} style={style}>
+        {text} 
+    </button>);
+}
+
+export default Button;
 
 let style = {
     margin: '10px',
@@ -7,12 +15,3 @@ let style = {
     height: '35px',
     fontSize: '22px'
 };
-
-const Button = ({text, url, onclick}) => {
-    let button = <Fragment></Fragment>
-    if(url !== '')
-        button = <button onClick={onclick} style={style}>{text} </button>
-    return button;
-}
-
-export default Button;

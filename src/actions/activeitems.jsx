@@ -1,36 +1,36 @@
-import {ADD_ITEMS, SET_ACTIVE_LIST, FETCH_ERROR} from './actions.jsx';
+import {ADD_ITEMS, SET_ACTIVE_ITEMS, FETCH_ERROR} from './actions.jsx';
 
-export const setActiveList = (url) => (dispatch, getState) => {
+export const setActiveItems = (url) => (dispatch, getState) => {
     let new_offset = extractOffset(url);
     let new_limit = extractLimit(url);
 
-    const num_elements = getState().audioListReducer.items.length;
+    const num_elements = getState().itemsReducer.items.length;
     const new_max_index = new_offset + new_limit;
     // all needed items are in store
     if(num_elements > 0 && num_elements >= new_max_index) {        
         const payload = calcPayload(url, new_offset, new_limit);
-        dispatch({type: SET_ACTIVE_LIST, payload});
+        dispatch({type: SET_ACTIVE_ITEMS, payload});
         return;
     }
 
     // not all items are in store
     fetch(url).then(response => {
         response.json().then(
-            new_elements => {
+            new_items => {
                 if(response.ok){
-                    dispatch({type: ADD_ITEMS, payload: new_elements.data});
+                    dispatch({type: ADD_ITEMS, payload: new_items.data});
 
                     if(new_limit === 0)
-                        new_limit = new_elements.data.length;
-
+                        new_limit = new_items.data.length;
+                    
                     let next_page = '';
                     let prev_page = '';
-                    if(new_elements.paging.next)
-                        next_page = new_elements.paging.next;
-                    if(new_elements.paging.previous)
-                        prev_page = new_elements.paging.previous;
+                    if(new_items.paging.next)
+                        next_page = new_items.paging.next;
+                    if(new_items.paging.previous)
+                        prev_page = new_items.paging.previous;
 
-                    dispatch({type: SET_ACTIVE_LIST, payload: {
+                    dispatch({type: SET_ACTIVE_ITEMS, payload: {
                         active_offset: new_offset, active_limit: new_limit, 
                         next_page, prev_page }});
                 }
@@ -65,8 +65,13 @@ const baseUrl = url => {
     return new_url.replace(limit_str, '');
 }
 
+const composeUrl = (url, offset, limit) => {
+    let new_url = baseUrl(url);
+    return new_url + '&offset=' + offset.toString() + '&limit=' + limit.toString();
+}
+
 const extractOffset = url => {
-    let new_offset = 0;
+    let new_offset = 0; // default
     let offset_arr = url.match(/&?offset=\d+&?/g);
     if(offset_arr)
         new_offset = parseInt(offset_arr[0].match(/\d+/g));
@@ -74,7 +79,7 @@ const extractOffset = url => {
 }
 
 const extractLimit = url => {
-    let new_limit = 0;
+    let new_limit = 20; // default
     let limit_arr = url.match(/&?limit=\d+&?/g);
     if(limit_arr)
         new_limit = parseInt(limit_arr[0].match(/\d+/g));
@@ -88,21 +93,13 @@ const calcPayload = (url, new_offset, new_limit) => {
         prev_page: null
     };
 
-    let new_url = baseUrl(url);
-
     let new_next_offset = new_offset + new_limit;
-    let next_page_url = new_url + '&offset=' + new_next_offset.toString() + 
-        '&limit=' + new_limit.toString();
+    payload.next_page = composeUrl(url, new_next_offset, new_limit);
 
+    payload.prev_page = '';
     let new_prev_offset = new_offset - new_limit;
-    let prev_page_url = '';
-    if(new_prev_offset >= 0){
-        prev_page_url = new_url + '&offset=' + new_prev_offset.toString() +
-            '&limit=' + new_limit.toString();
-    }
-
-    payload.next_page = next_page_url;
-    payload.prev_page = prev_page_url;
+    if(new_prev_offset >= 0)
+        payload.prev_page = composeUrl(url, new_prev_offset, new_limit);
 
     return payload;
 }

@@ -1,27 +1,29 @@
 import React from 'react';
+import Tag from './tag.jsx';
 
-const AudioElement = ({data}) => {
-    let tags = [];
-    for(let i=0; i<data.tags.length; i++)
-        tags.push(<span key={i} style={tag}>{data.tags[i].name}</span>);
+const AudioElement = ({trackname, username, audio_length, play_count, img, tags}) => {
+    let tags_list = [];
+    for(let i=0; i<tags.length; i++)
+        tags_list.push(<Tag key={i} name={tags[i].name} />);
 
     return <div style={outer}>
-        <h3 style={h3}>{data.name}</h3>
+        <h3 style={h3}>{trackname}</h3>
         <div style={inner_cols}>
             <div style={cols}>
-                <div>User: {data.user.name}</div>
-                <div>Length: {data.audio_length}</div>
-                <div>Play count: {data.play_count} </div>
-                <div style={s_tags}>{tags}</div>
+                <div>User: {username}</div>
+                <div>Length: {audio_length}</div>
+                <div>Play count: {play_count} </div>
+                <div style={s_tags}>{tags_list}</div>
             </div>
             <div>
-                <img style={img} src={data.pictures.medium}></img>
+                <img style={img_s} src={img}></img>
             </div>
         </div>
     </div>;
 }
 
 export default AudioElement;
+
 
 const outer = {
     border: "1px solid black",
@@ -36,7 +38,8 @@ const h3 = {
 
 const cols = {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    textAlign: 'left'
 };
 
 const inner_cols = {
@@ -44,7 +47,7 @@ const inner_cols = {
     justifyContent: 'space-between'
 }
 
-const img = {
+const img_s = {
     borderRadius: '6px'
 }
 
@@ -52,12 +55,4 @@ const s_tags = {
     display: 'flex',
     alignItems: 'baseline',
     flexWrap: 'wrap'
-}
-
-const tag = {
-    border: "0",
-    borderRadius: "2px",
-    backgroundColor: '#ebedea',
-    margin: '5px',
-    padding: '5px'
 }

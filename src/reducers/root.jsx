@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import audioListReducer from './audiolist.jsx';
+import itemsReducer from './items.jsx';
 
 const rootReducer = combineReducers ({
-    audioListReducer
+    itemsReducer
 });
 
 export default rootReducer;
