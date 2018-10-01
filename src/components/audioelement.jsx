@@ -29,7 +29,7 @@ const outer = {
     border: "1px solid black",
     borderRadius: "6px",
     margin: "10px",
-    padding: "6px",
+    padding: "6px"
 }
 
 const h3 = {

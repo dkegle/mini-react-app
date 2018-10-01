@@ -9,7 +9,7 @@ class App extends React.Component{
     componentDidMount(){
         // initialize
         const url = 'https://api.mixcloud.com/search/?q=party+time&type=cloudcast';
-		this.props.setActiveItems(url);
+        this.props.setActiveItems(url);
     }
 
     render(){
