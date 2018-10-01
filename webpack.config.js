@@ -18,13 +18,19 @@ module.exports = {
                 loader: 'babel-loader', 
                 options: {presets: ["@babel/react"]}}
             ]
+        },
+        {
+            test: /\.scss$/,
+            use:["style-loader",
+                'css-loader',
+                "sass-loader"]
         }
     ]
    },
    plugins:[ // inline scripts into index.html and avoid writing index.js to disk
         new HtmlWebpackPlugin({
             template: './src/index.html',
-            inlineSource: '.(js)$'
+            inlineSource: '.(js|scss)$'
         }),
         new HtmlWebpackInlineSourcePlugin(),
         new IgnoreAssetsWebpackPlugin({

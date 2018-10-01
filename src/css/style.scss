@@ -1,0 +1,51 @@
+
+.button_div {
+    display: flex;
+    justify-content: center;
+}
+
+.button2 {
+    margin: 10px;
+    border-radius: 6px;
+    width: 100px;
+    height: 35px;
+    font-size: 22px;
+}
+
+.outer_div {
+    margin: 0 auto;
+    width: 500px;
+    text-align: center;
+}
+
+.outer {
+    border: 1px solid black;
+    border-radius: 6px;
+    margin: 10px;
+    padding: 6px
+}
+
+h3 {
+    text-align: center
+}
+
+.cols {
+    display: flex;
+    flex-direction: column;
+    text-align: left
+}
+
+.inner_cols {
+    display: flex;
+    justify-content: space-between
+}
+
+.img_s {
+    border-radius: 6px
+}
+
+.s_tags {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap
+}

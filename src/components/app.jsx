@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import AudioList from './audiolist.jsx';
 import {connect} from 'react-redux';
 import Button from './button.jsx';
@@ -13,13 +13,13 @@ class App extends React.Component{
     }
 
     render(){
-        return (<div style={outer_div}>
+        return (<div className='outer_div'>
             <Header />
             <AudioList items={this.props.items.items} 
                 from={this.props.items.active_offset}
                 to={this.props.items.active_offset + this.props.items.active_limit}
             />
-            <div style={button_div}>
+            <div className='button_div'>
                 <Button text="prev" url={this.props.items.prev_page} />
                 <Button text="next" url={this.props.items.next_page} />
             </div>
@@ -33,14 +33,3 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {setActiveItems})(App);
 
-
-const button_div = {
-    display: 'flex', 
-    justifyContent: "center"
-}
-
-const outer_div = {
-    margin: '0 auto', 
-    width: "500px",
-    textAlign: 'center'
-}

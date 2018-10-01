@@ -8,6 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import App from './components/app.jsx';
 import rootReducer from './reducers/root.jsx';
 
+import './css/style.scss';
 
 const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(thunk)));
 

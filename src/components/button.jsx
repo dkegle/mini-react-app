@@ -18,18 +18,10 @@ class Button extends React.Component {
     
         return (<button 
             onClick={this.buttonClick} 
-            style={style}>
+            className='button2'>
             {this.props.text} 
         </button>);
     }
 }
 
 export default connect(null,{setActiveItems})(Button);
-
-let style = {
-    margin: '10px',
-    borderRadius: '6px',
-    width: '100px',
-    height: '35px',
-    fontSize: '22px'
-};
