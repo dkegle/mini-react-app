@@ -30,7 +30,7 @@ module.exports = {
    plugins:[ // inline scripts into index.html and avoid writing index.js to disk
         new HtmlWebpackPlugin({
             template: './src/index.html',
-            inlineSource: '.(js|scss)$'
+            inlineSource: '.(js)$'
         }),
         new HtmlWebpackInlineSourcePlugin(),
         new IgnoreAssetsWebpackPlugin({
