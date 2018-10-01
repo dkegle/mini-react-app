@@ -13,20 +13,6 @@ class App extends React.Component{
     }
 
     render(){
-        let prev_button = <Fragment></Fragment>;
-        const prev_page = this.props.items.prev_page;
-        if(prev_page){
-            prev_button = <Button text="prev" url={prev_page} 
-                onclick={() => this.props.setActiveItems(prev_page)}/>
-        }
-
-        let next_button = <Fragment></Fragment>;
-        const next_page = this.props.items.next_page;
-        if(next_page){
-            next_button = <Button text="next" url={next_page} 
-                onclick={() => this.props.setActiveItems(next_page)}/>;
-        }
-
         return (<div style={outer_div}>
             <Header />
             <AudioList items={this.props.items.items} 
@@ -34,8 +20,8 @@ class App extends React.Component{
                 to={this.props.items.active_offset + this.props.items.active_limit}
             />
             <div style={button_div}>
-                {prev_button}
-                {next_button}
+                <Button text="prev" url={this.props.items.prev_page} />
+                <Button text="next" url={this.props.items.next_page} />
             </div>
         </div>);
     }
