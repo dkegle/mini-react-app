@@ -18,7 +18,7 @@ class Button extends React.Component {
     
         return (<button 
             onClick={this.buttonClick} 
-            className='button2'>
+            className='pagination-button'>
             {this.props.text} 
         </button>);
     }

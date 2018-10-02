@@ -1,51 +1,104 @@
-
-.button_div {
-    display: flex;
-    justify-content: center;
+body{
+    background: #f7f7f7;
 }
 
-.button2 {
-    margin: 10px;
-    border-radius: 6px;
-    width: 100px;
-    height: 35px;
-    font-size: 22px;
-}
+$border-color: #82a5e7;
+$audio-element-border: 2px solid $border-color;
 
-.outer_div {
+.app-div {
     margin: 0 auto;
     width: 500px;
     text-align: center;
 }
 
-.outer {
-    border: 1px solid black;
+.audio-element {
     border-radius: 6px;
+    background-color: #f0f7ff;
     margin: 10px;
-    padding: 6px
 }
 
-h3 {
-    text-align: center
+.content-title{
+    background-color: #dbecff;
+    border-left: $audio-element-border;
+    border-right: $audio-element-border;
+    border-top: $audio-element-border;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    vertical-align: middle;
+    h3 {
+        margin: 0px;
+        padding: 8px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+    }
 }
 
-.cols {
+.content-main {
     display: flex;
-    flex-direction: column;
-    text-align: left
+    justify-content: space-between;
+    padding: 6px;
+
+    border-left: $audio-element-border;
+    border-right: $audio-element-border;
+    border-bottom: $audio-element-border;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    div > .element-img{
+        border-radius: 6px;
+    }
 }
 
-.inner_cols {
-    display: flex;
-    justify-content: space-between
-}
-
-.img_s {
-    border-radius: 6px
-}
-
-.s_tags {
+.tag-div {
     display: flex;
     align-items: baseline;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+
+    .tag {
+        border-radius: 2px;
+        background-color: #d5dbe7;
+        margin: 5px;
+        padding: 5px;
+    }
+}
+
+.button-div {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-button {
+    background-color: #d6e0f5;
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid $border-color;
+    border-bottom: 0px;
+    border-radius: 4px;
+    box-shadow: 0 4px 2px #638ddb;
+    width: 100px;
+    height: 35px;
+    font-size: 22px;
+    transition: all .1s linear;
+
+    &:hover{
+        background: #c2d1f0;
+    }
+
+    &:active{
+        background-color: #adc2eb;
+        box-shadow: 0 2px 0 #006599;
+    }
+
+    &:focus{
+        outline: 0;
+    }
 }
