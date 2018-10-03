@@ -1,55 +1,37 @@
 import {ADD_ITEMS, SET_ACTIVE_ITEMS, FETCH_ERROR} from './actions.jsx';
 
-export const setActiveItems = (url) => (dispatch, getState) => {
+export const setActiveItems = url => async (dispatch, getState) => {
     let new_offset = extractOffset(url);
     let new_limit = extractLimit(url);
 
-    const num_elements = getState().itemsReducer.items.length;
     const new_max_index = new_offset + new_limit;
-    // all needed items are in store
-    if(num_elements > 0 && num_elements >= new_max_index) {        
-        const payload = calcPayload(url, new_offset, new_limit);
-        dispatch({type: SET_ACTIVE_ITEMS, payload});
-        return;
+    const cur_length = getState().itemsReducer.items.length;
+
+    // not enough items are in store, fetch additional
+    if(cur_length == 0 || cur_length < new_max_index) {
+        const num_missing = new_max_index - cur_length;
+        const missing_items_url = composeUrl(url, cur_length, num_missing);
+        try{
+            const response = await fetch(missing_items_url);
+            const new_items = await response.json();
+            dispatch({type: ADD_ITEMS, payload: new_items.data});
+        }
+        catch(err){
+            console.log("Fetch error");
+            dispatch({type: FETCH_ERROR, payload: err});
+            return;
+        }
     }
 
-    // not all items are in store
-    fetch(url).then(response => {
-        response.json().then(
-            new_items => {
-                if(response.ok){
-                    dispatch({type: ADD_ITEMS, payload: new_items.data});
+    const payload = calcPayload(url, new_offset, new_limit);
+    dispatch({type: SET_ACTIVE_ITEMS, payload});
+}
 
-                    if(new_limit === 0)
-                        new_limit = new_items.data.length;
-                    
-                    let next_page = '';
-                    let prev_page = '';
-                    if(new_items.paging.next)
-                        next_page = new_items.paging.next;
-                    if(new_items.paging.previous)
-                        prev_page = new_items.paging.previous;
-
-                    dispatch({type: SET_ACTIVE_ITEMS, payload: {
-                        active_offset: new_offset, active_limit: new_limit, 
-                        next_page, prev_page }});
-                }
-                else{
-                    const err = 'Error, invalid request ' + toString(response.status);
-                    dispatch({type: FETCH_ERROR, payload: err});
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                const err = 'Error, invalid JSON data';
-                dispatch({type: FETCH_ERROR, payload: err});
-            })
-    })
-    .catch(error => {
-        console.log(error);
-        const err = 'Fetch failed, network error';
-        dispatch({type: FETCH_ERROR, payload: err});
-    });
+export const changeNumItems = (num_items) => (dispatch, getState) => {
+    const t_url = getState().itemsReducer.next_page;
+    const offset = getState().itemsReducer.active_offset;
+    const new_url = composeUrl(t_url, offset, num_items);
+    setActiveItems(new_url)(dispatch, getState);
 }
 
 // remove substrings '&limit=123&' and '&offset=123&'
@@ -97,9 +79,15 @@ const calcPayload = (url, new_offset, new_limit) => {
     payload.next_page = composeUrl(url, new_next_offset, new_limit);
 
     payload.prev_page = '';
+    if(new_offset === 0)
+        return payload;
+
     let new_prev_offset = new_offset - new_limit;
-    if(new_prev_offset >= 0)
-        payload.prev_page = composeUrl(url, new_prev_offset, new_limit);
+    if(new_prev_offset < 0){
+        new_prev_offset = 0;
+    }
+    
+    payload.prev_page = composeUrl(url, new_prev_offset, new_limit);
 
     return payload;
 }
