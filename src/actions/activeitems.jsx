@@ -13,11 +13,12 @@ export const setActiveItems = url => async (dispatch, getState) => {
         const missing_items_url = composeUrl(url, cur_length, num_missing);
         try{
             const response = await fetch(missing_items_url);
+            if(!response.ok)
+                throw "Error, invalid request " + response.status.toString();
             const new_items = await response.json();
             dispatch({type: ADD_ITEMS, payload: new_items.data});
         }
         catch(err){
-            console.log("Fetch error");
             dispatch({type: FETCH_ERROR, payload: err});
             return;
         }
