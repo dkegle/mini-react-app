@@ -5,4 +5,4 @@ Display data from CloudMix. Features
 - fetch data from api,
 - pagination of results.
 
-Live demo [here](https://dkegle.github.io/test-react-app/).
+Live demo [here](https://dkegle.github.io/mini-react-app/).
