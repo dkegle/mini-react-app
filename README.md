@@ -1,5 +1,8 @@
 ### CloudMix audio list
 
-Call CloudMix api and display data to the user.
+Display data from CloudMix. Features
+- ReactJS/ReduxJS,
+- fetch data from api,
+- pagination of results.
 
 Live demo [here](https://dkegle.github.io/test-react-app/).
