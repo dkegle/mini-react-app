@@ -117,7 +117,7 @@ $audio-element-border: 2px solid $border-color;
     }
 }
 
-.button-div {
+.audiolist-footer-div {
     display: flex;
     justify-content: center;
 }
@@ -148,4 +148,16 @@ $audio-element-border: 2px solid $border-color;
     &:focus{
         outline: 0;
     }
+}
+
+.page-number{
+    display: inline-block;
+    width: 15px;
+    height: 25px;
+    margin: 0.5em;
+    border: 2px solid rgb(98, 174, 245);
+    border-radius: 5px;
+}
+.page-number-active{
+    background-color: #638ddb;
 }

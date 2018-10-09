@@ -5,6 +5,7 @@ const initialState = {
     active_limit: 0,
     next_page: '',
     prev_page: '',
+    cur_page: 1,
     items: []
 }
 

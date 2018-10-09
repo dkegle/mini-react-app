@@ -1,9 +1,9 @@
 import React from 'react';
 import AudioList from './audiolist.jsx';
 import {connect} from 'react-redux';
-import Button from './button.jsx';
 import Header from './header.jsx';
 import AudioListHeader from './audiolistheader.jsx';
+import AudioListFooter from './audiolistfooter.jsx';
 import {setActiveItems} from '../actions/activeitems.jsx';
 
 class App extends React.Component{
@@ -21,10 +21,7 @@ class App extends React.Component{
                 from={this.props.items.active_offset}
                 to={this.props.items.active_offset + this.props.items.active_limit}
             />
-            <div className='button-div'>
-                <Button text="prev" url={this.props.items.prev_page} />
-                <Button text="next" url={this.props.items.next_page} />
-            </div>
+            <AudioListFooter />
         </div>);
     }
 }
