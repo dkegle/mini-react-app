@@ -9,21 +9,17 @@ class PageNumber extends React.Component {
     }
 
     click(){
-        console.log(this.props.number);
+        this.props.setActiveItems(this.props.url);
     }
 
     render(){
         if(!this.props.number)
             return <Fragment></Fragment>;
         let n_style = 'page-number';
-        if(this.props.number === this.props.cur_page)
+        if(this.props.active)
             n_style = n_style + ' page-number-active';
         return <div className={n_style} onClick={this.click}>{this.props.number}</div>;
     }
 }
 
-const mapStateToProps = state => ({
-    cur_page: state.itemsReducer.cur_page,
-});
-
-export default connect(mapStateToProps, {setActiveItems})(PageNumber);
+export default connect(null, {setActiveItems})(PageNumber);

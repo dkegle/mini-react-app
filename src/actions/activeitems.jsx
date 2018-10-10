@@ -48,7 +48,7 @@ const baseUrl = url => {
     return new_url.replace(limit_str, '');
 }
 
-const composeUrl = (url, offset, limit) => {
+export const composeUrl = (url, offset, limit) => {
     let new_url = baseUrl(url);
     return new_url + '&offset=' + offset.toString() + '&limit=' + limit.toString();
 }
