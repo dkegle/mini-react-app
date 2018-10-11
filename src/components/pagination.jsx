@@ -22,7 +22,7 @@ class Pagination extends React.Component {
         });
 
         return (
-            <div>{page_numbers}</div>
+            <div className="pagination-div">{page_numbers}</div>
         );
     }
 }

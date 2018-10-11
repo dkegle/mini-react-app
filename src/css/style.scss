@@ -150,14 +150,58 @@ $audio-element-border: 2px solid $border-color;
     }
 }
 
+.inactive-button{
+    background-color: #d6e0f5;
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid $border-color;
+    border-bottom: 0px;
+    border-radius: 4px;
+    width: 100px;
+    height: 35px;
+    font-size: 22px;
+    opacity: 0.5;
+    box-shadow: 0 4px 2px #638ddb;
+    transition: all .1s linear;
+    &:focus{
+        outline: 0;
+    }
+}
+
+.pagination-div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .page-number{
-    display: inline-block;
-    width: 15px;
-    height: 25px;
-    margin: 0.5em;
-    border: 2px solid rgb(98, 174, 245);
+    min-width: 15px;
+    min-height: 25px;
+    padding: 4px;
+    margin: 5px;
+    border: 1px solid rgb(98, 174, 245);
     border-radius: 5px;
+    box-shadow: 0 4px 2px #638ddb;
+    transition: all .1s linear;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 16px;
+    &:hover{
+        background: #c2d1f0;
+        cursor: pointer;
+    }
+
+    &:active{
+        background-color: #adc2eb;
+        box-shadow: 0 2px 0 #006599;
+    }
+
+    &:focus{
+        outline: 0;
+    }
 }
 .page-number-active{
-    background-color: #638ddb;
+    background-color: #e6e6e6;
+    border: 2px solid rgb(121, 186, 248);
 }

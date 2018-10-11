@@ -13,12 +13,16 @@ class Button extends React.Component {
     }
 
     render(){
-        if(!this.props.url)
-            return <Fragment></Fragment>
+        let on_click = this.buttonClick;
+        let class_name = 'pagination-button';
+        if(!this.props.url){
+            on_click = undefined;
+            class_name = 'inactive-button'
+        }
     
         return (<button 
-            onClick={this.buttonClick} 
-            className='pagination-button'>
+            onClick={on_click} 
+            className={class_name}>
             {this.props.text} 
         </button>);
     }
