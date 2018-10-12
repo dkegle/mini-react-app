@@ -17,9 +17,10 @@ class App extends React.Component{
         return (<div className='app-div'>
             <Header />
             <AudioListHeader />
-            <AudioList items={this.props.items.items} 
-                from={this.props.items.active_offset}
-                to={this.props.items.active_offset + this.props.items.active_limit}
+            <AudioList 
+                items={this.props.items} 
+                from={this.props.active_offset}
+                to={this.props.active_offset + this.props.active_limit}
             />
             <AudioListFooter />
         </div>);
@@ -27,7 +28,9 @@ class App extends React.Component{
 }
 
 const mapStateToProps = state => ({
-    items: state.itemsReducer
+    items: state.itemsReducer.items,
+    active_offset: state.itemsReducer.active_offset,
+    active_limit: state.itemsReducer.active_limit
 });
 
 export default connect(mapStateToProps, {setActiveItems})(App);
