@@ -21,7 +21,12 @@ const itemsReducer = (state = initialState, action) => {
             new_state_.active_limit = action.payload.active_limit;
             new_state_.next_page = action.payload.next_page;
             new_state_.prev_page = action.payload.prev_page;
-            new_state_.cur_page = Math.floor(new_state_.active_offset/new_state_.active_limit+0.5) + 1;
+            let remainder = new_state_.active_offset%new_state_.active_limit;
+            if(remainder == 0)
+                new_state_.cur_page = Math.floor(new_state_.active_offset/new_state_.active_limit+0.5) + 1;
+            else
+            new_state_.cur_page = (
+                Math.floor((new_state_.active_offset - remainder)/new_state_.active_limit+0.5) + 2);
             return new_state_;
         case FETCH_ERROR:
             console.log(action.payload);
